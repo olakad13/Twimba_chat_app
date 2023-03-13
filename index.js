@@ -1,6 +1,11 @@
+//importing data from data.js file
 import { tweetsData } from './data.js'
+//Importing UUID CDN
 import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
 
+
+
+//Click Event listen handler, that handles all click Event on the Page
 document.addEventListener('click', function(e){
     if(e.target.dataset.like){
        handleLikeClick(e.target.dataset.like) 
@@ -17,7 +22,9 @@ document.addEventListener('click', function(e){
         handleDeleteBtn(e.target.dataset.delete)
     }
 })
- 
+
+
+//Fuction that handles the Like button
 function handleLikeClick(tweetId){ 
     const targetTweetObj = tweetsData.filter(function(tweet){
         return tweet.uuid === tweetId
@@ -33,6 +40,8 @@ function handleLikeClick(tweetId){
     render()
 }
 
+
+//Fuction that handles the Retweet button
 function handleRetweetClick(tweetId){
     const targetTweetObj = tweetsData.filter(function(tweet){
         return tweet.uuid === tweetId
@@ -52,13 +61,15 @@ function handleReplyClick(replyId){
     document.getElementById(`replies-${replyId}`).classList.toggle('hidden')
 }
 
+
+//Fuction that handles the Tweet button
 function handleTweetBtnClick(){
     const tweetInput = document.getElementById('tweet-input')
 
     if(tweetInput.value){
         tweetsData.unshift({
             handle: `@Scrimba`,
-            profilePic: `images/scrimbalogo.png`,
+            profilePic: `/images/scrimbalogo.png`,
             likes: 0,
             retweets: 0,
             tweetText: tweetInput.value,
@@ -73,6 +84,8 @@ function handleTweetBtnClick(){
 
 }
 
+
+//Fuction that handles the delete button
 function handleDeleteBtn(tweetId) {
     let tweetIndex;
     const targetTweetObj = tweetsData.filter(function(tweet){
@@ -85,6 +98,7 @@ function handleDeleteBtn(tweetId) {
     render()
 }
 
+//This function form the Html to display
 function getFeedHtml(){
     let feedHtml = ``
     
@@ -164,7 +178,7 @@ function getFeedHtml(){
 }
 
 
-
+//This function renders the getHtml() function to the page
 function render(){
     document.getElementById('feed').innerHTML = getFeedHtml()
 }
